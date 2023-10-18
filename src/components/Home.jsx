@@ -26,7 +26,7 @@ const Home = () => {
 			<Link to="/login">Link to login page</Link>
 			<br />
 			<br />
-			<Link to={`/profile/${auth?.email}`}>Go to profile</Link>
+			<Link to={`/profile/${auth?.id}`}>Go to profile</Link>
 			<br />
 			<Link to="/dashboard">Link to admin dashboard</Link>
 			<br />

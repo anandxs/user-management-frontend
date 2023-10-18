@@ -32,8 +32,8 @@ const Login = () => {
 				navigate(from, { replace: true });
 			})
 			.catch((err) => {
-				console.log(err.message);
-				setError(err.message);
+				if (err.response.status == 404) setError("Invalid credentials");
+				else setError(err.message);
 			});
 	};
 
