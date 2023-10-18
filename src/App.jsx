@@ -12,7 +12,7 @@ function App() {
 			{/* <Login /> */}
 			{/* <Profile /> */}
 			{/* <Register /> */}
-			<Dashboard />
+			{/* <Dashboard /> */}
 		</>
 	);
 }
