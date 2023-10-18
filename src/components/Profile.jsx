@@ -1,4 +1,4 @@
-import { useDebugValue, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../api/axios";
 import { USER_URL } from "../urls";

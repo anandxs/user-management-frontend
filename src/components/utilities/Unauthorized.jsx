@@ -11,7 +11,9 @@ const Unauthorized = () => {
 			<br />
 			<p>You do not have access to the requested page.</p>
 			<div>
-				<button onClick={goBack}>Go Back</button>
+				<button type="button" onClick={goBack}>
+					Go Back
+				</button>
 			</div>
 		</section>
 	);

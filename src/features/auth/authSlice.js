@@ -1,15 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let x;
-if (localStorage.getItem("key")) x = JSON.parse(localStorage.getItem("key"));
+const local = localStorage.getItem("key");
 
 const initialState = {
-	email: x ? x.email : "",
-	accessToken: x ? x.accessToken : "",
-	role: x ? x.role : "anon",
-	// email: localStorage.getItem("key")?.email ?? "",
-	// accessToken: localStorage.getItem("key")?.accessToken ?? "",
-	// role: localStorage.getItem("key")?.role ?? "anon",
+	auth: local && JSON.parse(local),
 };
 
 const authSlice = createSlice({
@@ -17,19 +11,10 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		onLogin: (state, action) => {
-			state.email = action.payload.email;
-			state.accessToken = action.payload.accessToken;
-			state.role = action.payload.role;
+			state.auth = action.payload;
 		},
 		onLogout: (state) => {
-			state.email = "";
-			state.accessToken = "";
-			state.role = "anon";
-		},
-		onReload: (state, action) => {
-			state.email = action.payload.email;
-			state.accessToken = action.payload.accessToken;
-			state.role = action.payload.accessToken;
+			state.auth = null;
 		},
 	},
 });
