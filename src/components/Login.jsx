@@ -35,9 +35,6 @@ const Login = () => {
 				console.log(err.message);
 				setError(err.message);
 			});
-
-		setEmail("");
-		setpassword("");
 	};
 
 	return (
