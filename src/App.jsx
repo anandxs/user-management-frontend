@@ -9,6 +9,7 @@ import MissingResource from "./components/utilities/MissingResource";
 import RequireAuth from "./components/utilities/RequireAuth";
 import Unauthorized from "./components/utilities/Unauthorized";
 import RequireNoAuth from "./components/utilities/RequireNoAuth";
+import Edit from "./components/admin/Edit";
 
 function App() {
 	return (
@@ -29,6 +30,8 @@ function App() {
 
 				<Route element={<RequireAuth allowedRoles={["admin"]} />}>
 					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/create" element={<Register />} />
+					<Route path="/edit/:id" element={<Edit />} />
 				</Route>
 
 				<Route path="/*" element={<MissingResource />} />

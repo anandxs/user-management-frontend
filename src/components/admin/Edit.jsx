@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "../api/axios";
-import { USER_URL } from "../urls";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "../../api/axios";
+import { USER_URL } from "../../urls";
 
-const Profile = () => {
+const Edit = () => {
 	const { id } = useParams();
 	const [userData, setUserData] = useState({});
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPwd, setConfirmPwd] = useState("");
-	const [pwdErr, setPwdErr] = useState("");
 	const [error, setError] = useState();
 	const [status, setStatus] = useState();
+
+	const navigate = useNavigate();
+
+	const goBack = () => navigate(-1);
 
 	const getUserData = () => {
 		axios
@@ -29,19 +30,13 @@ const Profile = () => {
 		getUserData();
 	}, []);
 
-	useEffect(() => {
-		if (password !== confirmPwd)
-			setPwdErr("Password and confirmation password should match");
-		else setPwdErr();
-	}, [confirmPwd]);
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		axios
 			.put(
 				`${USER_URL}/${userData.id}`,
-				JSON.stringify({ firstName, lastName, password }),
+				JSON.stringify({ firstName, lastName, password: "" }),
 				{
 					headers: { "Content-Type": "application/json" },
 					withCredentials: true,
@@ -52,8 +47,6 @@ const Profile = () => {
 				getUserData();
 				setFirstName("");
 				setLastName("");
-				setPassword("");
-				setConfirmPwd("");
 			})
 			.catch((err) => {
 				setError(err.message);
@@ -64,7 +57,7 @@ const Profile = () => {
 		<section>
 			<div id="display">
 				<div>
-					<h1>Your profile</h1>
+					<h1>Profile Details</h1>
 					<p>First Name: {userData.firstName}</p>
 					<p>Last Name: {userData.lastName}</p>
 					<p>Email: {userData.email}</p>
@@ -93,29 +86,13 @@ const Profile = () => {
 					required
 				/>
 				<br />
-				<label htmlFor="password">Password</label>
-				<input
-					type="password"
-					id="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					required
-				/>
-				<br />
-				{pwdErr && <p>{pwdErr}</p>}
-				<label htmlFor="confirm-password">Confirm Password</label>
-				<input
-					type="password"
-					id="confirm=password"
-					value={confirmPwd}
-					onChange={(e) => setConfirmPwd(e.target.value)}
-					required
-				/>
-				<br />
 				<button type="submit">Update</button>
+				<button type="button" onClick={goBack}>
+					Go Back
+				</button>
 			</form>
 		</section>
 	);
 };
 
-export default Profile;
+export default Edit;

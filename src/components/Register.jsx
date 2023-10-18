@@ -40,6 +40,11 @@ const Register = () => {
 			.then((response) => {
 				console.log(response.data);
 				setStatus("Go back and login to continue");
+				setEmail("");
+				setPassword("");
+				setConfirmPwd("");
+				setFirstName("");
+				setLastName("");
 			})
 			.catch((err) => {
 				if (err.response.status == 400)
