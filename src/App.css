@@ -1,4 +1,18 @@
 #root {
   max-width: 1280px;
   padding: 2rem;
+  margin: 1rem auto;
+}
+
+section {
+  margin:auto;
+}
+
+.home {
+  width: 300px;
+}
+
+.login {
+  width: 500px;
+  margin: 1rem auto;
 }

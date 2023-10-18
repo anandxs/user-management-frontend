@@ -14,6 +14,8 @@ const Login = () => {
 
 	const navigate = useNavigate();
 
+	const goBack = () => navigate(-1);
+
 	const from = location.state?.from?.pathname || "/";
 
 	const handleSubmit = (e) => {
@@ -39,25 +41,37 @@ const Login = () => {
 
 	return (
 		<section>
-			<form onSubmit={handleSubmit}>
-				{error !== "" ? <p>{error}</p> : null}
-				<label htmlFor="email">Enter email</label>
+			<h1 className="text-center">Login</h1>
+			<form className="login" onSubmit={handleSubmit}>
+				{error !== "" ? <p className="text-danger">{error}</p> : null}
 				<input
 					type="email"
 					id="email"
+					placeholder="Enter email"
+					className="form-control mb-2"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					required
 				/>
-				<label htmlFor="password">Enter password</label>
 				<input
 					type="password"
 					id="password"
+					placeholder="Enter password"
+					className="form-control mb-2"
 					value={password}
 					onChange={(e) => setpassword(e.target.value)}
 					required
 				/>
-				<button type="submit">Login</button>
+				<button type="submit" className="btn btn-success">
+					Login
+				</button>
+				<button
+					type="button"
+					onClick={goBack}
+					className="btn btn-secondary mx-2"
+				>
+					Back
+				</button>
 			</form>
 		</section>
 	);

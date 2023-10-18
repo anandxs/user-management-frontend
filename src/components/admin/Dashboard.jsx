@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { USER_URL } from "../../urls";
 
 const Dashboard = () => {
 	const [query, setQuery] = useState("");
 	const [userList, setUserList] = useState([]);
+
+	const navigate = useNavigate();
+
+	const goBack = () => navigate(-1);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -57,24 +61,44 @@ const Dashboard = () => {
 	return (
 		<section>
 			<div className="admin-header">
-				<h1>Users List</h1>
-				<Link to="/create">Link to create new user</Link>
-				<button type="button" onClick={handleFullList}>
+				<h1 className="text-center">Users List</h1>
+				<Link to="/create">
+					<button type="button" className="btn btn-primary">
+						Create New User
+					</button>
+				</Link>
+				<button
+					type="button"
+					className="btn btn-outline-secondary mx-2"
+					onClick={handleFullList}
+				>
 					Get full list
 				</button>
+				<button onClick={goBack} type="button" className="btn btn-secondary">
+					Go Back
+				</button>
 			</div>
-			<form className="search-form" onSubmit={handleSubmit}>
-				<input
-					type="text"
-					placeholder="Search with email"
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
-					required
-				/>
-				<button type="submit">Search</button>
+			<form className="mt-3 mb-3" onSubmit={handleSubmit}>
+				<div className="row">
+					<div className="col-md-9">
+						<input
+							type="text"
+							placeholder="Search with email"
+							className="form-control"
+							value={query}
+							onChange={(e) => setQuery(e.target.value)}
+							required
+						/>
+					</div>
+					<div className="col-md-3">
+						<button type="submit" className="btn btn-info w-100">
+							Search
+						</button>
+					</div>
+				</div>
 			</form>
-			<table>
-				<thead>
+			<table className="table table-hover">
+				<thead className="table-primary">
 					<tr>
 						<th>First Name</th>
 						<th>Last Name</th>
@@ -88,15 +112,21 @@ const Dashboard = () => {
 							<td>{user.firstName}</td>
 							<td>{user.lastName}</td>
 							<td>{user.email}</td>
-							<td>
+							<td className="d-flex justify-content-around gap-1">
 								{user.role !== "admin" && (
-									<button type="button" onClick={() => handleDelete(user.id)}>
+									<button
+										type="button"
+										className="btn btn-danger w-100"
+										onClick={() => handleDelete(user.id)}
+									>
 										Delete
 									</button>
 								)}
-								<button type="button">
-									<Link to={`/edit/${user.id}`}>Edit</Link>
-								</button>
+								<Link to={`/edit/${user.id}`} className="w-100">
+									<button type="button" className="btn btn-warning w-100">
+										Edit
+									</button>
+								</Link>
 							</td>
 						</tr>
 					))}

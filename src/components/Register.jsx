@@ -39,7 +39,9 @@ const Register = () => {
 			)
 			.then((response) => {
 				console.log(response.data);
-				setStatus("Go back and login to continue");
+				if (localStorage.getItem("key")?.role === "user")
+					setStatus("Go back and login to continue");
+				else setStatus("Success");
 				setEmail("");
 				setPassword("");
 				setConfirmPwd("");
@@ -55,56 +57,107 @@ const Register = () => {
 
 	return (
 		<section>
-			<form onSubmit={handleSubmit}>
-				{error && <p>{error}</p>}
-				{status && <p>{status}</p>}
-				<label htmlFor="first-name">First Name</label>
-				<input
-					type="text"
-					id="first-name"
-					value={firstName}
-					onChange={(e) => setFirstName(e.target.value)}
-					required
-				/>
-				<br />
-				<label htmlFor="last-name">Last Name</label>
-				<input
-					type="text"
-					id="last-name"
-					value={lastName}
-					onChange={(e) => setLastName(e.target.value)}
-					required
-				/>
-				<br />
-				<label htmlFor="email">Email</label>
-				<input
-					type="email"
-					id="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					required
-				/>
-				<br />
-				<label htmlFor="password">Password</label>
-				<input
-					type="password"
-					id="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					required
-				/>
-				{pwdErr && <p>{pwdErr}</p>}
-				<br />
-				<label htmlFor="confirm-password">Confirm Password</label>
-				<input
-					type="password"
-					id="confirm-password"
-					value={confirmPwd}
-					onChange={(e) => setConfirmPwd(e.target.value)}
-					required
-				/>
-				<button type="submit">Register</button>
-				<button type="button" onClick={goBack}>
+			<h1 className="text-center">Create Account</h1>
+			<form className="m-3 mx-0" onSubmit={handleSubmit}>
+				{error && <p className="text-danger">{error}</p>}
+				{status && <p className="text-success">{status}</p>}
+				<div className="row mb-1">
+					<div className="col-md-2">
+						<label className="form-label" htmlFor="first-name">
+							First Name
+						</label>
+					</div>
+					<div className="col-md-10">
+						<input
+							type="text"
+							id="first-name"
+							className="form-control"
+							placeholder="Enter first name"
+							value={firstName}
+							onChange={(e) => setFirstName(e.target.value)}
+							required
+						/>
+					</div>
+				</div>
+				<div className="row mb-1">
+					<div className="col-md-2">
+						<label className="fomr-label" htmlFor="last-name">
+							Last Name
+						</label>
+					</div>
+					<div className="col-md-10">
+						<input
+							type="text"
+							id="last-name"
+							className="form-control"
+							placeholder="Enter last name"
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
+							required
+						/>
+					</div>
+				</div>
+				<div className="row mb-1">
+					<div className="col-md-2">
+						<label className="form-label" htmlFor="email">
+							Email
+						</label>
+					</div>
+					<div className="col-md-10">
+						<input
+							type="email"
+							id="email"
+							className="form-control"
+							placeholder="Enter your email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							required
+						/>
+					</div>
+				</div>
+				<div className="row mb-1">
+					<div className="col-md-2">
+						<label className="form-label" htmlFor="password">
+							Password
+						</label>
+					</div>
+					<div className="col-md-10">
+						<input
+							type="password"
+							id="password"
+							placeholder="Enter password"
+							className="form-control"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+					</div>
+				</div>
+				<div className="row mb-1">
+					<div className="col-12 text-danger">{pwdErr && <p>{pwdErr}</p>}</div>
+					<div className="col-md-2">
+						<label htmlFor="confirm-password">Confirm Password</label>
+					</div>
+					<div className="col-md-10">
+						<input
+							type="password"
+							id="confirm-password"
+							value={confirmPwd}
+							className="form-control"
+							placeholder="Enter password again"
+							onChange={(e) => setConfirmPwd(e.target.value)}
+							required
+						/>
+					</div>
+				</div>
+				<button className="btn btn-success" type="submit">
+					Register
+				</button>
+				<button
+					className="btn btn-secondary mx-1"
+					type="button"
+					onClick={goBack}
+				>
 					Go Back
 				</button>
 			</form>
