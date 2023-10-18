@@ -4,7 +4,7 @@ const Home = () => {
 	return (
 		<section>
 			<h1>Home Page</h1>
-			<Link to="/profile">Go to profile</Link>
+			<Link to="/profile/1">Go to profile</Link>
 			<br />
 			<Link to="/register">Link to register page</Link>
 			<br />
