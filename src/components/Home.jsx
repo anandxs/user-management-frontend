@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import { onLogout } from "../features/auth/authSlice";
 
 const Home = () => {
-	const x = useSelector((state) => state.auth);
-	useEffect(() => {
-		console.log(x);
-	}, []);
-
 	const auth = useSelector((state) => state.auth);
+
+	useEffect(() => {
+		console.log(auth);
+	}, [auth]);
 
 	const dispatch = useDispatch();
 
@@ -22,14 +21,14 @@ const Home = () => {
 	return (
 		<section>
 			<h1>Home Page</h1>
-			<Link to="/profile/1">Go to profile</Link>
+			<Link to={`/profile/${auth.email}`}>Go to profile</Link>
 			<br />
 			<Link to="/register">Link to register page</Link>
 			<br />
 			<Link to="/login">Link to login page</Link>
 			<br />
 			<Link to="/dashboard">Link to admin dashboard</Link>
-			{auth?.accessToken !== "" && (
+			{auth?.email !== "" && (
 				<button type="button" onClick={handleLogout}>
 					Logout
 				</button>

@@ -35,6 +35,7 @@ function App() {
 				{/* user only */}
 				<Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
 					<Route path="/profile/:id" element={<Profile />} />
+					<Route path="/profile" element={<Login />} />
 				</Route>
 
 				{/* admin only */}
