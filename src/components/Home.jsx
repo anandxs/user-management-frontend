@@ -1,6 +1,24 @@
-import { Link, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { onLogout } from "../features/auth/authSlice";
 
 const Home = () => {
+	const x = useSelector((state) => state.auth);
+	useEffect(() => {
+		console.log(x);
+	}, []);
+
+	const auth = useSelector((state) => state.auth);
+
+	const dispatch = useDispatch();
+
+	const handleLogout = () => {
+		localStorage.clear();
+		dispatch(onLogout());
+		console.log("logging out");
+	};
+
 	return (
 		<section>
 			<h1>Home Page</h1>
@@ -11,6 +29,11 @@ const Home = () => {
 			<Link to="/login">Link to login page</Link>
 			<br />
 			<Link to="/dashboard">Link to admin dashboard</Link>
+			{auth?.accessToken !== "" && (
+				<button type="button" onClick={handleLogout}>
+					Logout
+				</button>
+			)}
 		</section>
 	);
 };

@@ -8,8 +8,21 @@ import Dashboard from "./components/admin/Dashboard";
 import MissingResource from "./components/MissingResource";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { onLogin } from "./features/auth/authSlice";
 
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const localKey = localStorage.getItem("key");
+		if (localKey) {
+			const { email, accessToken, role } = localKey;
+			dispatch(onLogin({ email, accessToken, role }));
+		}
+	}, []);
+
 	return (
 		<>
 			<Routes>
@@ -20,7 +33,7 @@ function App() {
 				<Route path="/unauthorized" element={<Unauthorized />} />
 
 				{/* user only */}
-				<Route element={<RequireAuth allowedRoles={["user"]} />}>
+				<Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
 					<Route path="/profile/:id" element={<Profile />} />
 				</Route>
 
