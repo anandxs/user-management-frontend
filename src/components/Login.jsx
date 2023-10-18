@@ -50,6 +50,7 @@ const Login = () => {
 					id="email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
+					required
 				/>
 				<label htmlFor="password">Enter password</label>
 				<input
@@ -57,6 +58,7 @@ const Login = () => {
 					id="password"
 					value={password}
 					onChange={(e) => setpassword(e.target.value)}
+					required
 				/>
 				<button type="submit">Login</button>
 			</form>
