@@ -13,6 +13,7 @@ const Profile = () => {
 	const [pwdErr, setPwdErr] = useState("");
 	const [error, setError] = useState();
 	const [status, setStatus] = useState();
+	const [img, setImg] = useState(null);
 
 	const navigate = useNavigate();
 
@@ -64,6 +65,39 @@ const Profile = () => {
 			});
 	};
 
+	// const handleFileChange = (e) => {
+	// 	setImg(e.target.files[0]);
+	// };
+
+	// const handleUpload = (e) => {
+	// 	e.preventDefault();
+	// 	console.log(img);
+
+	// 	const formData = new FormData();
+	// 	formData.append("img", img);
+	// 	formData.append("id", userData.id);
+
+	// 	axios
+	// 		.post("user/img", formData)
+	// 		.then((response) => {
+	// 			console.log(response);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error);
+	// 		});
+
+	// 	// axios
+	// 	// 	.post("user/img", JSON.stringify({ img, id: userData.id }), {
+	// 	// 		headers: { "Content-Type": "multipart/formdata" },
+	// 	// 	})
+	// 	// 	.then((response) => {
+	// 	// 		console.log(response);
+	// 	// 	})
+	// 	// 	.catch((error) => {
+	// 	// 		console.log(error.message);
+	// 	// 	});
+	// };
+
 	return (
 		<section>
 			<h1 className="text-center mb-3">Your profile</h1>
@@ -73,11 +107,15 @@ const Profile = () => {
 					<p>Last Name: {userData?.lastName}</p>
 					<p>Email: {userData?.email}</p>
 				</div>
-				{false && (
+				{/* <div>
 					<div>
-						<img src="" alt="profile-img" />
+						<img src={img && URL.createObjectURL(img)} alt="profile-img" />
 					</div>
-				)}
+					<form onSubmit={handleUpload} encType="multipart/form-data">
+						<input type="file" accept="image/" onChange={handleFileChange} />
+						<button type="submit">Upload</button>
+					</form>
+				</div> */}
 			</div>
 			<form className="mt-3" id="edit-form" onSubmit={handleSubmit}>
 				{status && <p className="text-success form-text">{status}</p>}

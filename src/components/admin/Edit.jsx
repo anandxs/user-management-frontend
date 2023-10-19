@@ -30,6 +30,10 @@ const Edit = () => {
 		getUserData();
 	}, []);
 
+	useEffect(() => {
+		setStatus("");
+	}, [firstName, lastName]);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -55,39 +59,66 @@ const Edit = () => {
 
 	return (
 		<section>
-			<div id="display">
+			<h1 className="text-center">Profile Details</h1>
+			<div className="d-flex justify-content-between">
 				<div>
-					<h1>Profile Details</h1>
 					<p>First Name: {userData.firstName}</p>
 					<p>Last Name: {userData.lastName}</p>
 					<p>Email: {userData.email}</p>
 				</div>
-				<div>
-					<img src="" alt="profile-img" />
-				</div>
+				{false && (
+					<div>
+						<img src="" alt="profile-img" />
+					</div>
+				)}
 			</div>
 			<form id="edit-form" onSubmit={handleSubmit}>
-				{status && <p>{status}</p>}
-				<label htmlFor="first-name">First Name</label>
-				<input
-					type="text"
-					id="first-name"
-					value={firstName}
-					onChange={(e) => setFirstName(e.target.value)}
-					required
-				/>
-				<br />
-				<label htmlFor="last-name">Last Name</label>
-				<input
-					type="text"
-					id="last-name"
-					value={lastName}
-					onChange={(e) => setLastName(e.target.value)}
-					required
-				/>
-				<br />
-				<button type="submit">Update</button>
-				<button type="button" onClick={goBack}>
+				<h5>Update Details</h5>
+				{status && <p className="text-success">{status}</p>}
+				<div className="row mb-1">
+					<div className="col-md-2">
+						<label className="form=label" htmlFor="first-name">
+							First Name
+						</label>
+					</div>
+					<div className="col-md-10">
+						<input
+							type="text"
+							id="first-name"
+							value={firstName}
+							placeholder="Enter first name"
+							className="form-control"
+							onChange={(e) => setFirstName(e.target.value)}
+							required
+						/>
+					</div>
+				</div>
+				<div className="row mb-1">
+					<div className="col-md-2">
+						<label className="form-label" htmlFor="last-name">
+							Last Name
+						</label>
+					</div>
+					<div className="col-md-10">
+						<input
+							type="text"
+							id="last-name"
+							className="form-control"
+							placeholder="Enter last name"
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
+							required
+						/>
+					</div>
+				</div>
+				<button type="submit" className="btn btn-success">
+					Update
+				</button>
+				<button
+					type="button"
+					className="btn btn-secondary mx-2"
+					onClick={goBack}
+				>
 					Go Back
 				</button>
 			</form>

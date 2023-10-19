@@ -6,6 +6,7 @@ import { USER_URL } from "../../urls";
 const Dashboard = () => {
 	const [query, setQuery] = useState("");
 	const [userList, setUserList] = useState([]);
+	const [error, setError] = useState();
 
 	const navigate = useNavigate();
 
@@ -14,14 +15,14 @@ const Dashboard = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		console.log(query);
 		axios
 			.get(`${USER_URL}/search?query=${query}`)
 			.then((response) => {
+				setError();
 				setUserList(response.data);
 			})
 			.catch((error) => {
-				console.log(error.message);
+				setError(error.message);
 			});
 	};
 
@@ -30,11 +31,11 @@ const Dashboard = () => {
 		axios
 			.delete(`${USER_URL}/${id}`)
 			.then((response) => {
-				console.log(response);
+				setError();
 				handleFullList();
 			})
 			.catch((err) => {
-				console.log(err.message);
+				setError(error.message);
 			});
 	};
 
@@ -97,41 +98,45 @@ const Dashboard = () => {
 					</div>
 				</div>
 			</form>
-			<table className="table table-hover">
-				<thead className="table-primary">
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Email</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{userList.map((user) => (
-						<tr key={user.id}>
-							<td>{user.firstName}</td>
-							<td>{user.lastName}</td>
-							<td>{user.email}</td>
-							<td className="d-flex justify-content-around gap-1">
-								{user.role !== "admin" && (
-									<button
-										type="button"
-										className="btn btn-danger w-100"
-										onClick={() => handleDelete(user.id)}
-									>
-										Delete
-									</button>
-								)}
-								<Link to={`/edit/${user.id}`} className="w-100">
-									<button type="button" className="btn btn-warning w-100">
-										Edit
-									</button>
-								</Link>
-							</td>
+			{error ? (
+				<p>{error}</p>
+			) : (
+				<table className="table table-hover">
+					<thead className="table-primary">
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th></th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{userList.map((user) => (
+							<tr key={user.id}>
+								<td>{user.firstName}</td>
+								<td>{user.lastName}</td>
+								<td>{user.email}</td>
+								<td className="d-flex justify-content-around gap-1">
+									{user.role !== "admin" && (
+										<button
+											type="button"
+											className="btn btn-danger w-100"
+											onClick={() => handleDelete(user.id)}
+										>
+											Delete
+										</button>
+									)}
+									<Link to={`/edit/${user.id}`} className="w-100">
+										<button type="button" className="btn btn-warning w-100">
+											Edit
+										</button>
+									</Link>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			)}
 		</section>
 	);
 };
